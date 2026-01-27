@@ -1,0 +1,172 @@
+        :root {
+            --sidebar-width: 260px;
+            --sidebar-collapsed-width: 80px;
+            --primary-color: #4f46e5;
+            --primary-light: #eef2ff;
+            --text-gray: #64748b;
+            --text-dark: #1e293b;
+            --bg-sidebar: #ffffff;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            background-color: #f8fafc;
+            transition: var(--transition);
+        }
+
+        /* Sidebar Base Style */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--bg-sidebar);
+            position: fixed;
+            left: 0;
+            top: 0;
+            border-right: 1px solid #e2e8f0;
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            box-sizing: border-box;
+            z-index: 1050;
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        /* Tombol Toggle Melayang */
+        .toggle-btn {
+            position: fixed;
+            left: calc(var(--sidebar-width) - 15px);
+            top: 25px;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1060;
+            transition: var(--transition);
+            border: 3px solid #f8fafc;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Class Collapsed (Saat sidebar tertutup) */
+        body.collapsed .sidebar {
+            width: var(--sidebar-collapsed-width);
+        }
+
+        body.collapsed .toggle-btn {
+            left: calc(var(--sidebar-collapsed-width) - 15px);
+            transform: rotate(180deg);
+        }
+
+        body.collapsed .sidebar span, 
+        body.collapsed .menu-label,
+        body.collapsed .sidebar-brand span {
+            display: none;
+        }
+
+        body.collapsed .sidebar a {
+            justify-content: center;
+            padding: 0.875rem;
+        }
+
+        /* Branding */
+        .sidebar-brand {
+            padding: 0 1rem 2rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            white-space: nowrap;
+        }
+
+        /* Link Navigation */
+        .sidebar a {
+            text-decoration: none;
+            color: var(--text-gray);
+            padding: 0.875rem 1.25rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .sidebar a i {
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .sidebar a:hover {
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+            transform: translateX(4px);
+        }
+
+        body.collapsed .sidebar a:hover {
+            transform: scale(1.1);
+        }
+
+        .sidebar a.active {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+        }
+
+        .menu-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #94a3b8;
+            letter-spacing: 0.05em;
+            margin: 1.5rem 0 0.5rem 1.25rem;
+            white-space: nowrap;
+        }
+
+        /* Content Adjustment */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        body.collapsed .main-content {
+            margin-left: var(--sidebar-collapsed-width);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .sidebar {
+                left: -100%;
+            }
+            body.collapsed .sidebar {
+                left: 0;
+                width: var(--sidebar-width);
+            }
+            body.collapsed .sidebar span, 
+            body.collapsed .menu-label {
+                display: block;
+            }
+            .main-content {
+                margin-left: 0 !important;
+            }
+            .toggle-btn {
+                left: 15px;
+            }
+            body.collapsed .toggle-btn {
+                left: calc(var(--sidebar-width) - 15px);
+            }
+        }
